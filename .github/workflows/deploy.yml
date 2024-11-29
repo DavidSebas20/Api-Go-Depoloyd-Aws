@@ -1,0 +1,24 @@
+name: Deploy Go to AWS
+
+on:
+    push:
+        branches:
+            - deployed
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Checkout code
+            uses: actions/checkout@v4
+
+        - name: Login to DockerHub
+            run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+        - name: Build docker image
+            run: docker build -t dssanguano/go-deployment-aws .
+        
+        - name: Push docker image
+            run: docker push dssanguano/go-deployment-aws:latest    
+
