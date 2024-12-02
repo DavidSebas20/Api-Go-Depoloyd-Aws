@@ -8,14 +8,11 @@ on:
 jobs:
     build:
         runs-on: ubuntu-latest
-
         steps:
         - name: Checkout code
-            uses: actions/checkout@v4
-
+        uses: actions/checkout@v4
         - name: Login to DockerHub
-            run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         - name: Build docker image
             run: docker build -t dssanguano/go-deployment-aws .
         
@@ -26,10 +23,12 @@ jobs:
         runs-on: self-hosted
         steps:
             - name: Pull docker image
-                run: docker pull dssanguano/go-deployment-aws:latest
+            run: docker pull dssanguano/go-deployment-aws:latest
+
             - name: Delete old container
-                run: docker rm -f go-app-container || true
+            run: docker rm -f go-app-container || true
+            
             - name : Run docker container
-                run: docker run -d -p 4040:4040 --name go-app-container dssanguano/go-deployment-aws
+            run: docker run -d -p 4040:4040 --name go-app-container dssanguano/go-deployment-aws
             
 
