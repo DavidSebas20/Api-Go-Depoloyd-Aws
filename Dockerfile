@@ -6,6 +6,4 @@ COPY  . .
 
 RUN go build -o main main.go
 
-EXPOSE 4040
-
 CMD [ "./main" ]
