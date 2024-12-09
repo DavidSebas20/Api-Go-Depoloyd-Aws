@@ -6,6 +6,9 @@ func main() {
 
 	server := gin.Default()
 
+	server.Static("/static", "./static")
+	server.LoadHTMLFiles("static/index.html")
+
 	server.GET("/", func(ctx *gin.Context) {
 		ctx.JSON(200, gin.H{
 			"message": "Api Go from Docker deployd on Aws",
